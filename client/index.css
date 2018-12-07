@@ -78,6 +78,9 @@
 }
 .table thead td {
   cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .table thead td:hover {
   color: #1F7A8C;

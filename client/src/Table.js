@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { LoadingSpinner, Input } from './index';
-import axios from 'axios';
+import { Input } from './index';
+import load from './hocs/load';
 import classNames from 'classnames';
 
 class Table extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      filteredData: [],
+      filteredData: props.data,
       sortedBy: {},
       searchValidationError: ''
     };
@@ -16,16 +16,7 @@ class Table extends Component {
     this.sortData = this.sortData.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
 
-    this.data = [];
-  }
-
-  componentDidMount() {
-    axios.get('/api/data/school-quality')
-      .then(res => {
-        this.setState({ filteredData: res.data });
-        this.data = res.data;
-      })
-      .catch(console.log)
+    this.data = props.data;
   }
 
   sortData(col) {
@@ -73,7 +64,7 @@ class Table extends Component {
         headers.push(
           <td
             key={colName}
-            style={{ width: row[colName].width }}
+            style={{ width: row[colName].width, maxWidth: row[colName].width }}
             className="table-row-item"
             onClick={() => this.sortData(colName)}
           >
@@ -105,7 +96,7 @@ class Table extends Component {
                 return (
                   <td
                     key={`${key}-${index}`}
-                    style={{ width: item[key].width }}
+                    style={{ width: item[key].width, maxWidth: item[key].width }}
                     className={classNames(
                       'table-row-item',
                       {
@@ -142,49 +133,33 @@ class Table extends Component {
   }
 
   render() {
-    const { filteredData, searchValidationError } = this.state;
+    const { searchValidationError } = this.state;
 
-    if (filteredData.length) {
-      return (
-        <div className="page-wrapper">
-          {
-            filteredData.length
-              ? <p className="page-header">2018-19 CBB Rankings</p>
-              : null
-          }
-          {
-            filteredData.length
-              ?
-              <div className="table-container-wrapper">
-                <Input
-                  placeholder="Search school or conference..."
-                  onChange={this.handleSearch}
-                  validationError={searchValidationError}
-                />
-                <div className="table-container">
-                  <table className="table">
-                    {
-                      filteredData && this.renderHeaderRows()
-                    }
-                    <tbody className="table-body">
-                      {
-                        filteredData && this.renderContentRows()
-                      }
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-              :
-              null
-          }
+    return (
+      <div className="page-wrapper">
+        <p className="page-header">2018-19 CBB Rankings</p>
+        <div className="table-container-wrapper">
+          <Input
+            placeholder="Search school or conference..."
+            onChange={this.handleSearch}
+            validationError={searchValidationError}
+          />
+          <div className="table-container">
+            <table className="table">
+              {
+                this.renderHeaderRows()
+              }
+              <tbody className="table-body">
+                {
+                  this.renderContentRows()
+                }
+              </tbody>
+            </table>
+          </div>
         </div>
-      )
-    } else {
-      return (
-        <LoadingSpinner />
-      )
-    }
+      </div>
+    )
   }
 }
 
-export default Table;
+export default load(Table);

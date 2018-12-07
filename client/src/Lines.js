@@ -1,31 +1,21 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-
-import { Dropdown, LinesCard, LoadingSpinner } from './index';
+import { Dropdown, LinesCard } from './index';
+import load from './hocs/load';
 
 class Lines extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      lines: [],
-      sortedBy: ''
+      lines: props.data.sort((a, b) => {
+        const aContent = Math.abs(a.spreadDiff);
+        const bContent = Math.abs(b.spreadDiff);
+        if (aContent > bContent) return -1;
+        if (aContent < bContent) return 1;
+        return 0;
+      }),
+      sortedBy: 'Best Value'
     }
     this.sortBy = this.sortBy.bind(this);
-  }
-
-  componentDidMount() {
-    axios.get('/api/data/lines')
-      .then(res => {
-        const lines = res.data.sort((a, b) => {
-          const aContent = Math.abs(a.spreadDiff);
-          const bContent = Math.abs(b.spreadDiff);
-          if (aContent > bContent) return -1;
-          if (aContent < bContent) return 1;
-          return 0;
-        })
-        this.setState({ lines, sortedBy: 'Best Value' })
-      })
-      .catch(console.log)
   }
 
   sortBy(col) {
@@ -55,32 +45,26 @@ class Lines extends Component {
       'Time'
     ];
 
-    if (lines.length) {
-      return (
-        <div className="lines-page">
-          <div className="sorted-by">
-            <Dropdown
-              openDropdownTitle="Sort by"
-              options={dropdownOptions}
-              onOptionClick={this.sortBy}
-              title={sortedBy}
-              type="select"
-              width={100}
-            />
-          </div>
-          <div className="lines">
-            {
-              lines.map(line => <LinesCard key={line.id} lineInfo={line} />)
-            }
-          </div>
+    return (
+      <div className="lines-page">
+        <div className="sorted-by">
+          <Dropdown
+            openDropdownTitle="Sort by"
+            options={dropdownOptions}
+            onOptionClick={this.sortBy}
+            title={sortedBy}
+            type="select"
+            width={100}
+          />
         </div>
-      )
-    } else {
-      return (
-        <LoadingSpinner />
-      )
-    }
+        <div className="lines">
+          {
+            lines.map(line => <LinesCard key={line.id} lineInfo={line} />)
+          }
+        </div>
+      </div>
+    )
   }
 }
 
-export default Lines;
+export default load(Lines);
