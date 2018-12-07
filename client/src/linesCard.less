@@ -1,0 +1,184 @@
+.lines {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  justify-content: center;
+}
+
+.lines-card {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 20px;
+  width: 75%;
+  align-items: center;
+  box-shadow: 0px 1px 1px 0px black;
+}
+
+.lines-card-time-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  box-shadow: 0px 1px 1px -1px black;
+  position: relative;
+  z-index: 2;
+  background-color: @primaryColor;
+  color: @secondaryColor;
+}
+
+.lines-card-info-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.lines-card-team-info-wrapper {
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+  background-color: @secondaryColor;
+  color: @primaryColor;
+  box-shadow: 0px 1px 1px -1px black;
+  position: relative;
+  z-index: 1;
+}
+
+.lines-card-team-info {
+  display: flex;
+  justify-content: space-around;
+}
+
+.lines-card-team-info div {
+  display: flex;
+  justify-content: center;
+  width: 33%;
+}
+
+.lines-card-value-pick-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 14px;
+}
+
+.lines-card-value-pick {
+  font-weight: bold;
+}
+
+.lines-card-value-pick span {
+  color: @quatenaryColor;
+}
+
+.lines-card-value-pick-last-row {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.lines-card-value-pick-space-filler {
+  width: 7%;
+}
+
+.lines-card-value-pick-toggle {
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.lines-card-value-pick-toggle:hover {
+  color: @quatenaryColor;
+}
+
+@keyframes show-line-info {
+  0% { height: 0px; }
+  100% { height: 110px; }
+}
+
+@keyframes hide-line-info {
+  0% { height: 110px; }
+  100% { height: 0px; }
+}
+
+@keyframes grow-line-info-text {
+  0% { font-size: 0px; }
+  100% { font-size: 16px; }
+}
+
+@keyframes shrink-line-info-text {
+  0% { font-size: 16px; }
+  100% { font-size: 0px; }
+}
+
+.lines-card-line-info {
+  height: 0px;
+  font-size: 0px;
+}
+
+.lines-card-line-info-visible {
+  display: flex;
+  justify-content: space-around;
+  background-color: @tertiaryColor;
+  color: @primaryColor;
+  animation-name: show-line-info;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+.lines-card-line-info-hidden {
+  display: flex;
+  justify-content: space-around;
+  background-color: @tertiaryColor;
+  color: @primaryColor;
+  animation-name: hide-line-info;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+.lines-card-line-info-visible div {
+  animation-name: grow-line-info-text;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+.lines-card-line-info-hidden div {
+  animation-name: shrink-line-info-text;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+.lines-card-team-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0px 5px;
+}
+
+.lines-card-value {
+  color: @senaryColor;
+}
+
+.lines-card-spread-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lines-card p {
+  margin: 0px;
+}
+
+@media only screen and (max-width: 875px) {
+  .lines-card {
+      width: 85%;
+  }
+
+  .lines-card-value-pick-space-filler {
+    width: 6%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .lines-card-value-pick-space-filler {
+    width: 11%;
+  }
+}

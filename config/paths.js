@@ -35,7 +35,7 @@ function getServedPath(appPackageJson) {
   const publicUrl = getPublicUrl(appPackageJson);
   const servedUrl =
     envPublicUrl || (publicUrl ? url.parse(publicUrl).pathname : '/');
-  return ensureSlash(servedUrl, true);
+  return ensureSlash(servedUrl, false);
 }
 
 const moduleFileExtensions = [
@@ -72,9 +72,9 @@ module.exports = {
   appBuild: resolveApp('build'),
   appPublic: resolveApp('public'),
   appHtml: resolveApp('public/index.html'),
-  appIndexJs: resolveModule(resolveApp, 'client/src/index'),
+  appIndexJs: resolveModule(resolveApp, 'client/index'),
   appPackageJson: resolveApp('package.json'),
-  appSrc: resolveApp('client/src'),
+  appSrc: resolveApp('client'),
   appTsConfig: resolveApp('tsconfig.json'),
   yarnLockFile: resolveApp('yarn.lock'),
   testsSetup: resolveModule(resolveApp, 'client/src/setupTests'),

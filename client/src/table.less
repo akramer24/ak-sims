@@ -1,0 +1,75 @@
+.table-container-wrapper {
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.table-container {
+  width: 100vw;
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+}
+
+@media only screen and (max-width: 600px) {
+  .table-container, .table-container-wrapper {
+    display: block;
+  }
+}
+
+.sorted-column {
+  background-color: @quatenaryColor;
+  color: @secondaryColor;
+}
+
+.lightblue {
+  background-color: @tertiaryColor;
+  color: @primaryColor;
+}
+
+.lightgrey {
+  background-color: @secondaryColor;
+  color: @quatenaryColor;
+}
+
+.table {
+  width: 90%;
+  min-width: 667px;
+  max-width: 836px;
+  table-layout: fixed;
+  border-collapse: collapse;
+  box-shadow: 0px 1px 1px 1px @primaryColor, 0px 1px 3px 1px @secondaryColor, 0px 1px 8px 1px @tertiaryColor;
+  margin-bottom: 5px;
+  
+  th { text-decoration: underline; }
+  th, td {
+    padding: 5px;
+    text-align: left;
+  }
+
+  thead {
+    background-color: @primaryColor;
+    color: @secondaryColor;
+    tr {
+      display: block;
+      position: relative;
+    }
+    td {
+      cursor: pointer;
+    }
+    td:hover {
+      color: @quatenaryColor;
+    }
+  }
+  tbody {
+    display: block;
+    overflow: auto;
+    width: 100%;
+    max-height: 65vh;
+    tr {
+      display: flex;
+    }
+  }
+}
