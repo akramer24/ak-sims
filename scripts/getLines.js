@@ -140,6 +140,9 @@ async function getLines() {
 }
 
 module.exports = getLines;
-// getLines()
-//   .then(() => console.log('Got latest lines as of: ', new Date()))
-//   .catch(console.log)
+getLines()
+  .then(() => {
+    console.log('Got latest lines as of: ', new Date());
+    process.exit();
+  })
+  .catch(console.log)
